@@ -1,0 +1,65 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:sans-serif;
+    background:#222;
+    color:white;
+}
+
+.container{
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+h1{
+
+    margin:20px;
+}
+
+#map{
+
+    width:90vw;
+    height:80vh;
+
+    border:1px solid #555;
+}
+
+.province{
+
+    fill:#777;
+
+    stroke:white;
+
+    stroke-width:.5;
+
+    transition:.2s;
+}
+
+.province:hover{
+
+    fill:orange;
+
+    cursor:pointer;
+}
+
+.selected{
+
+    fill:#ff3333 !important;
+}
+
+#info{
+
+    margin-top:15px;
+
+    font-size:20px;
+}
