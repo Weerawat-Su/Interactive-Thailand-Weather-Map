@@ -7,7 +7,13 @@
 body{
 
     font-family:sans-serif;
-    background:#222;
+
+    background-image:url("indexWallpaper.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
     color:white;
 }
 
@@ -31,7 +37,7 @@ h1{
     width:90vw;
     height:80vh;
 
-    border:1px solid #555;
+    border:0px solid #555;
 }
 
 .province{
