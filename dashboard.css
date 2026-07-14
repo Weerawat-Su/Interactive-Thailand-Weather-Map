@@ -11,13 +11,28 @@
 }
 
 .dashboard-body{
+
     background:
-        radial-gradient(circle at 50% 0%, #2a2a2a 0%, var(--bg) 60%);
+    linear-gradient(
+        rgba(15,15,15,.7),
+        rgba(15,15,15,.7)
+    ),
+    url("wallpaperDashboard.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
     font-family:var(--display);
+
     min-height:100vh;
+
     display:flex;
     justify-content:center;
+
     padding:32px 20px 60px;
+
 }
 
 .station{
@@ -65,6 +80,69 @@
     font-size:13px;
     color:var(--text-dim);
     margin-top:8px;
+}
+
+.tabs{
+    position:relative;
+    display:flex;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:6px;
+    padding:4px;
+    margin-bottom:24px;
+    gap:4px;
+}
+
+.tab-btn{
+    flex:1;
+    position:relative;
+    z-index:1;
+    background:none;
+    border:none;
+    font-family:var(--display);
+    font-size:14px;
+    font-weight:600;
+    color:var(--text-dim);
+    padding:10px 12px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:color .2s;
+}
+
+.tab-btn.active{
+    color:#1b1b1b;
+}
+
+.tab-indicator{
+    position:absolute;
+    top:4px;
+    left:4px;
+    width:calc(50% - 6px);
+    height:calc(100% - 8px);
+    background:var(--amber);
+    border-radius:4px;
+    transition:transform .25s ease;
+    transform:translateX(0);
+}
+
+.view[hidden]{
+    display:none;
+}
+
+.aqi-badge{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:999px;
+    background:var(--amber);
+    color:#1b1b1b;
+}
+
+.mock-note{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--amber-dim);
 }
 
 .loading, .error-box{
