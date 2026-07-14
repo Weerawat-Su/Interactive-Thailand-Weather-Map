@@ -28,63 +28,136 @@
         <div class="station-coords" id="provinceCoords">lat —, lon —</div>
     </header>
 
-    <div id="loading" class="loading">กำลังรับสัญญาณจากสถานีตรวจอากาศ…</div>
-    <div id="errorBox" class="error-box" hidden></div>
+    <div class="tabs" role="tablist">
+        <button class="tab-btn active" id="tabWeatherBtn" role="tab" aria-selected="true">สภาพอากาศ</button>
+        <button class="tab-btn" id="tabAirBtn" role="tab" aria-selected="false">คุณภาพอากาศ (PM2.5)</button>
+        <span class="tab-indicator" id="tabIndicator"></span>
+    </div>
 
-    <main id="readout" class="readout" hidden>
+    <!-- Weather view -->
+    <section id="weatherView" class="view">
 
-        <section class="temp-panel">
-            <div class="temp-main">
-                <span id="temperature">--</span><span class="temp-unit">°C</span>
-            </div>
-            <div class="temp-sub">
-                <span id="weatherIcon" class="weather-icon">☀️</span>
-                <span id="weatherDesc">—</span>
-            </div>
-            <div class="temp-feels">รู้สึกเหมือน <span id="feelsLike">--</span>°C</div>
-        </section>
+        <div id="weatherLoading" class="loading">กำลังรับสัญญาณจากสถานีตรวจอากาศ…</div>
+        <div id="weatherError" class="error-box" hidden></div>
 
-        <section class="metric-grid">
+        <main id="weatherReadout" class="readout" hidden>
 
-            <div class="metric">
-                <div class="metric-label">ความชื้น</div>
-                <div class="metric-value"><span id="humidity">--</span><span class="metric-unit">%</span></div>
-            </div>
+            <section class="temp-panel">
+                <div class="temp-main">
+                    <span id="temperature">--</span><span class="temp-unit">°C</span>
+                </div>
+                <div class="temp-sub">
+                    <span id="weatherIcon" class="weather-icon">☀️</span>
+                    <span id="weatherDesc">—</span>
+                </div>
+                <div class="temp-feels">รู้สึกเหมือน <span id="feelsLike">--</span>°C</div>
+            </section>
 
-            <div class="metric">
-                <div class="metric-label">ลม</div>
-                <div class="metric-value"><span id="windSpeed">--</span><span class="metric-unit">กม./ชม.</span></div>
-                <div class="metric-sub" id="windDir">—</div>
-            </div>
+            <section class="metric-grid">
 
-            <div class="metric">
-                <div class="metric-label">ปริมาณน้ำฝน</div>
-                <div class="metric-value"><span id="precip">--</span><span class="metric-unit">มม.</span></div>
-            </div>
+                <div class="metric">
+                    <div class="metric-label">ความชื้น</div>
+                    <div class="metric-value"><span id="humidity">--</span><span class="metric-unit">%</span></div>
+                </div>
 
-            <div class="metric">
-                <div class="metric-label">เมฆปกคลุม</div>
-                <div class="metric-value"><span id="cloud">--</span><span class="metric-unit">%</span></div>
-            </div>
+                <div class="metric">
+                    <div class="metric-label">ลม</div>
+                    <div class="metric-value"><span id="windSpeed">--</span><span class="metric-unit">กม./ชม.</span></div>
+                    <div class="metric-sub" id="windDir">—</div>
+                </div>
 
-            <div class="metric">
-                <div class="metric-label">ความกดอากาศ</div>
-                <div class="metric-value"><span id="pressure">--</span><span class="metric-unit">hPa</span></div>
-            </div>
+                <div class="metric">
+                    <div class="metric-label">ปริมาณน้ำฝน</div>
+                    <div class="metric-value"><span id="precip">--</span><span class="metric-unit">มม.</span></div>
+                </div>
 
-            <div class="metric">
-                <div class="metric-label">สูงสุด / ต่ำสุดวันนี้</div>
-                <div class="metric-value minmax"><span id="tempMax">--</span>° / <span id="tempMin">--</span>°</div>
-            </div>
+                <div class="metric">
+                    <div class="metric-label">เมฆปกคลุม</div>
+                    <div class="metric-value"><span id="cloud">--</span><span class="metric-unit">%</span></div>
+                </div>
 
-        </section>
+                <div class="metric">
+                    <div class="metric-label">ความกดอากาศ</div>
+                    <div class="metric-value"><span id="pressure">--</span><span class="metric-unit">hPa</span></div>
+                </div>
 
-        <footer class="station-foot">
-            <span>อัปเดตล่าสุด <span id="updatedAt">—</span></span>
-            <span class="source">ข้อมูลจาก Open-Meteo</span>
-        </footer>
+                <div class="metric">
+                    <div class="metric-label">สูงสุด / ต่ำสุดวันนี้</div>
+                    <div class="metric-value minmax"><span id="tempMax">--</span>° / <span id="tempMin">--</span>°</div>
+                </div>
 
-    </main>
+            </section>
+
+            <footer class="station-foot">
+                <span>อัปเดตล่าสุด <span id="updatedAt">—</span></span>
+                <span class="source" id="weatherSource">ข้อมูลจาก Open-Meteo</span>
+            </footer>
+
+        </main>
+
+    </section>
+
+    <!-- Air quality view -->
+    <section id="airView" class="view" hidden>
+
+        <div id="airLoading" class="loading">กำลังตรวจวัดคุณภาพอากาศ…</div>
+        <div id="airError" class="error-box" hidden></div>
+
+        <main id="airReadout" class="readout" hidden>
+
+            <section class="temp-panel">
+                <div class="temp-main">
+                    <span id="pm25">--</span><span class="temp-unit">µg/m³</span>
+                </div>
+                <div class="temp-sub">
+                    <span id="aqiBadge" class="aqi-badge">—</span>
+                    <span id="aqiDesc">—</span>
+                </div>
+                <div class="temp-feels">PM2.5 · เฉลี่ยรายชั่วโมงล่าสุด</div>
+            </section>
+
+            <section class="metric-grid">
+
+                <div class="metric">
+                    <div class="metric-label">PM10</div>
+                    <div class="metric-value"><span id="pm10">--</span><span class="metric-unit">µg/m³</span></div>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-label">US AQI</div>
+                    <div class="metric-value"><span id="usAqi">--</span></div>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-label">European AQI</div>
+                    <div class="metric-value"><span id="euAqi">--</span></div>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-label">โอโซน (O₃)</div>
+                    <div class="metric-value"><span id="ozone">--</span><span class="metric-unit">µg/m³</span></div>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-label">ไนโตรเจนไดออกไซด์</div>
+                    <div class="metric-value"><span id="no2">--</span><span class="metric-unit">µg/m³</span></div>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-label">คาร์บอนมอนอกไซด์</div>
+                    <div class="metric-value"><span id="co">--</span><span class="metric-unit">µg/m³</span></div>
+                </div>
+
+            </section>
+
+            <footer class="station-foot">
+                <span>อัปเดตล่าสุด <span id="airUpdatedAt">—</span></span>
+                <span class="source" id="airSource">ข้อมูลจาก Open-Meteo</span>
+            </footer>
+
+        </main>
+
+    </section>
 
 </div>
 
